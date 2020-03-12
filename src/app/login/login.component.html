@@ -1,0 +1,42 @@
+<div class="container" style="margin-top: 200px;">
+    <div class="col-md-6 offset-md-3 mt-5">
+        <div class="card" style="border-top: 2px solid #51cbce">
+            <form role="form"
+                [formGroup]="loginData"
+                (ngSubmit)="onSubmit(loginData.value)">
+                <div class="row mt-5 mb-5">
+                    <div class="col-md-6 offset-md-3">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text"
+                                class="form-control"
+                                placeholder="User"
+                                formControlName="user" required>
+
+                            <label>Password</label>
+                            <input type="password"
+                                class="form-control"
+                                placeholder="Password"
+                                formControlName="password"
+                                required>
+
+                            <label for="role">Role</label>
+                            <select formControlName="roles" class="form-control" required>
+                                <option value="superAdmin">Manager</option>
+                                <option value="regAdmin">Regional Manager</option>
+                                <option value="cityAdmin">City Manager</option>
+                            </select>
+
+                            <button type="submit" class="btn btn-primary btn-round"
+                                [disabled]="!loginData.valid">login</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+
+</div>
