@@ -10,12 +10,15 @@ import { NgxPermissionsService } from 'ngx-permissions';
 })
 
 export class DashboardComponent implements OnInit {
+    isSuper: boolean;
 
     constructor (private permissionsService: NgxPermissionsService) { }
 
     ngOnInit () {
-        const perm = [ "ADMIN", "EDITOR" ];
-        this.permissionsService.loadPermissions(perm);
+        const getRole = localStorage.getItem('role');
+        if (getRole === 'superAdmin') {
+            this.isSuper = true;
+        }
 
     }
 

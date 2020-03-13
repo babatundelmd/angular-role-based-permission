@@ -20,7 +20,7 @@ export const ROUTES: RouteInfo[] = [
     },
     {
         path: '/icons',
-        title: 'Icons',
+        title: 'All Regions',
         icon: 'nc-diamond',
         class: '',
         shouldRender: (roles: string) => {
@@ -29,7 +29,7 @@ export const ROUTES: RouteInfo[] = [
     },
     {
         path: '/table',
-        title: 'Table List',
+        title: 'Lagos',
         icon: 'nc-tile-56',
         class: '',
         shouldRender: (roles: string) => true
