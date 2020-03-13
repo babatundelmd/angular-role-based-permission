@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgxPermissionsService } from 'ngx-permissions';
+import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -10,9 +10,10 @@ import { ActivatedRoute } from '@angular/router';
 
 export class AppComponent {
 
-  constructor (private permissions: NgxPermissionsService, private route: ActivatedRoute) { }
+  constructor (private permissions: NgxPermissionsService, private route: ActivatedRoute, public allRoles: NgxRolesService) { }
 
   ngOnInit (): void {
+
   }
 
 }

@@ -10,41 +10,25 @@ import { NotificationsComponent } from '../../pages/notifications/notifications.
 import { UpgradeComponent } from '../../pages/upgrade/upgrade.component';
 import { NgxPermissionsGuard } from 'ngx-permissions';
 
+
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     {
         path: 'dashboard/:user',
         component: DashboardComponent
-        // canActivate: [ NgxPermissionsGuard ],
-        // data: {
-        //     permissions: {
-        //         only: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-        //             if (route.params[ 'user' ] === 'admin') {
-        //                 return [ 'ADMIN', 'CITYADMIN' ]
-        //             } else {
-        //                 return 'SUPERADMIN'
-        //             }
-        //         }
-        //     }
-        // }
     },
-    // 'cityAdmin', 'regAdmin', 'superAdmin'
     { path: 'user', component: UserComponent },
     { path: 'table', component: TableComponent },
     { path: 'typography', component: TypographyComponent },
     {
         path: 'icons',
-        component: IconsComponent,
-        canActivate: [ NgxPermissionsGuard ],
-        data: {
-            permissions: {
-                only: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-                    if (route.params[ 'input.roles' ] === 'superAdmin') {
-                        return true
-                    }
-                }
-            }
-        }
+        component: IconsComponent
+        // canActivate: [ NgxPermissionsGuard ],
+        // data: {
+        //     permissions: {
+        //         only: 'superAdmin'
+        //     }
+        // }
     },
     { path: 'maps', component: MapsComponent },
     { path: 'notifications', component: NotificationsComponent },

@@ -3,7 +3,7 @@ import { FormControl, Validators, FormBuilder, FormGroup, NgForm } from '@angula
 import { Router, ActivatedRoute } from '@angular/router';
 import { ActionSequence } from 'protractor';
 import { Login } from 'app/models/login.model';
-import { NgxPermissionsService } from 'ngx-permissions';
+import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
 
 @Component({
   selector: 'app-login',
@@ -18,11 +18,12 @@ export class LoginComponent implements OnInit {
     private builder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private permissions: NgxPermissionsService
+    private permissions: NgxPermissionsService,
+    private rolesService: NgxRolesService
   ) { }
 
   ngOnInit () {
-
+    console.log(this.rolesService.getRoles())
     this.resetForm();
   }
 
@@ -36,10 +37,9 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit (input: Login) {
-    const perms = [ 'cityAdmin', 'regAdmin', 'superAdmin' ];
-    this.permissions.loadPermissions(perms);
-    localStorage.setItem('Login-Token', JSON.stringify(input.roles))
+    const userRoles = input.roles;
+    localStorage.setItem('role', userRoles);
     console.log(input.roles)
-    this.router.navigate([ '/dashboard' ], { queryParams: { user: input.roles } })
+    this.router.navigate([ '/dashboard' ], { state: { data: userRoles } })
   }
 }

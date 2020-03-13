@@ -7,26 +7,33 @@ export interface RouteInfo {
     title: string;
     icon: string;
     class: string;
-    shouldRender (roles: string[]): boolean;
+    shouldRender (roles: string): boolean;
 }
 
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard', icon: 'nc-bank', class: '', shouldRender: (roles: []) => true },
+    {
+        path: '/dashboard',
+        title: 'Dashboard',
+        icon: 'nc-bank',
+        class: '',
+        shouldRender: (roles: string) => true
+    },
     {
         path: '/icons',
         title: 'Icons',
         icon: 'nc-diamond',
         class: '',
-        shouldRender: (roles) => {
+        shouldRender: (roles: string) => {
             return roles.includes('superAdmin');
         }
     },
-    // { path: '/maps',          title: 'Maps',              icon:'nc-pin-3',      class: '' },
-    // { path: '/notifications', title: 'Notifications',     icon:'nc-bell-55',    class: '' },
-    // { path: '/user',          title: 'User Profile',      icon:'nc-single-02',  class: '' },
-    { path: '/table', title: 'Table List', icon: 'nc-tile-56', class: '', shouldRender: (roles: []) => true },
-    // { path: '/typography', title: 'Typography', icon: 'nc-caps-small', class: '' },
-    // { path: '/upgrade', title: 'Upgrade to PRO', icon: 'nc-spaceship', class: 'active-pro' },
+    {
+        path: '/table',
+        title: 'Table List',
+        icon: 'nc-tile-56',
+        class: '',
+        shouldRender: (roles: string) => true
+    },
 ];
 
 @Component({
@@ -37,14 +44,16 @@ export const ROUTES: RouteInfo[] = [
 
 export class SidebarComponent implements OnInit {
     public menuItems: RouteInfo[];
+    public roleUser;
     user: Login;
     ngOnInit () {
-        this.menuItems = ROUTES.filter(menuItem =>
-            menuItem &&
-            menuItem.shouldRender(
-                (this.user || { roles: [] }).roles
-            ));
-
-        return this.menuItems
+        this.roleUser = localStorage.getItem('role')
+        this.menuItems = ROUTES.filter(menuItem => {
+            if (menuItem && menuItem.shouldRender(this.user || this.roleUser)) {
+                return true
+            }
+        }
+        );
+        console.log(this.roleUser)
     }
 }

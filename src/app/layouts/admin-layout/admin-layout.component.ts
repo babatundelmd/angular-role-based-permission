@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgxPermissionsService } from 'ngx-permissions';
+import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
 import { ActivatedRoute } from '@angular/router';
 import { ThrowStmt } from '@angular/compiler';
 
@@ -9,16 +9,24 @@ import { ThrowStmt } from '@angular/compiler';
   styleUrls: [ './admin-layout.component.scss' ]
 })
 export class AdminLayoutComponent implements OnInit {
-  session;
-  tokenize;
+  public roleuser;
   getRoles;
 
-  constructor (private permissions: NgxPermissionsService, private route: ActivatedRoute) { }
+  constructor (private permissions: NgxPermissionsService, private route: ActivatedRoute, private roles: NgxRolesService) { }
 
   ngOnInit (): void {
-    this.session = localStorage.getItem('Login-Token')
-    this.tokenize = JSON.parse(this.session)
-    this.getRoles = this.route.snapshot.paramMap.get('input.roles');
-    console.log(this.getRoles)
+    this.roles.addRole('cityAdmin', () => {
+      return true
+    })
+
+    this.roles.addRole('regAdmin', () => {
+      return true
+    })
+    this.roles.addRole('superAdmin', () => {
+      if (this.roleuser === 'superAdmin') {
+        return true
+      }
+
+    })
   }
 }
