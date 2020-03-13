@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgxPermissionsService } from 'ngx-permissions';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +10,9 @@ import { NgxPermissionsService } from 'ngx-permissions';
 
 export class AppComponent {
 
-  constructor (private permissionsService: NgxPermissionsService) { }
+  constructor (private permissions: NgxPermissionsService, private route: ActivatedRoute) { }
 
   ngOnInit (): void {
-    const perm = [ "ADMIN", "EDITOR" ];
-    this.permissionsService.loadPermissions(perm);
   }
 
 }
