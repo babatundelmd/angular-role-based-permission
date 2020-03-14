@@ -7,7 +7,7 @@ export interface RouteInfo {
     title: string;
     icon: string;
     class: string;
-    shouldRender (roles: string): boolean;
+    shouldView (roles: string): boolean;
 }
 
 export const ROUTES: RouteInfo[] = [
@@ -16,14 +16,14 @@ export const ROUTES: RouteInfo[] = [
         title: 'Dashboard',
         icon: 'nc-bank',
         class: '',
-        shouldRender: (roles: string) => true
+        shouldView: (roles: string) => true
     },
     {
         path: '/icons',
         title: 'All Regions',
         icon: 'nc-diamond',
         class: '',
-        shouldRender: (roles: string) => {
+        shouldView: (roles: string) => {
             return roles.includes('superAdmin');
         }
     },
@@ -32,7 +32,7 @@ export const ROUTES: RouteInfo[] = [
         title: 'Lagos',
         icon: 'nc-tile-56',
         class: '',
-        shouldRender: (roles: string) => true
+        shouldView: (roles: string) => true
     },
 ];
 
@@ -49,11 +49,11 @@ export class SidebarComponent implements OnInit {
     ngOnInit () {
         this.roleUser = localStorage.getItem('role')
         this.menuItems = ROUTES.filter(menuItem => {
-            if (menuItem && menuItem.shouldRender(this.user || this.roleUser)) {
-                return true
+            if (menuItem && menuItem.shouldView(this.user || this.roleUser)) {
+                return true;
             }
         }
         );
-        console.log(this.roleUser)
+
     }
 }
